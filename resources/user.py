@@ -15,6 +15,7 @@ class UserRegister(Resource):
                         required=True,
                         help="This field cannot be left blank!"
                         )
+
     def post(self):
         data = UserRegister.parser.parse_args()
 

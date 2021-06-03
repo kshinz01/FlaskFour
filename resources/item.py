@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt import JWT, jwt_required
 from models.item import ItemModel
 
+
 class Item(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('price',
@@ -59,6 +60,7 @@ class Item(Resource):
         if item:
             item.delete_from_db()
         return {'message':"Item deleted."}
+
 
 class ItemList(Resource):
     def get(self):
