@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import JWT, jwt_required
+from flask_jwt import jwt_required
 from models.store import StoreModel
 
 
@@ -41,6 +41,8 @@ class Store(Resource):
             store.delete_from_db()
         return {'message':"Store deleted."}
 
+
 class StoreList(Resource):
+    @jwt_required()
     def get(self):
         return {'stores': [x.json() for x in StoreModel.query.all()] }
