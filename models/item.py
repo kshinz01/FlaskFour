@@ -1,8 +1,7 @@
 from db import db
-from models import BaseModel
 
 
-class ItemModel(BaseModel):
+class ItemModel(db.Model):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -19,4 +18,20 @@ class ItemModel(BaseModel):
 
     def json(self):
         return {'name': self.name, 'price': self.price}
+
+    @classmethod
+    def find_by_name(cls, name):
+        return cls.query.filter_by(name=name).first()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
 
